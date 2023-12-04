@@ -3,4 +3,6 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request, 'global/home.html')
+    user = request.user
+    
+    return render(request, 'global/home.html', {'user': user})
