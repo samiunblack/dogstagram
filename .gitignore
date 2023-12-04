@@ -6,3 +6,4 @@ db.sqlite3
 /dogstagram/static
 /static/CACHE
 /static/styles/output.css
+/templatetags/__pycache__

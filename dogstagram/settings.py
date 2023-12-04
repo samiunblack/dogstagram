@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compressor',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +63,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+            'project_tags': 'templatetags.form_styles',
+        }
         },
+        # Look for base templatetags at root of project
     },
 ]
 

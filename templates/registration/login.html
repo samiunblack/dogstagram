@@ -1,32 +1,27 @@
 {% extends 'global/_base.html' %}
+{% load project_tags %}
+{% load i18n %}
 
 {% block content %}
   <div class="flex justify-center items-center h-screen">
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md" method="post" action="{% url 'login' %}">
-      {% csrf_token %}
-      <div class="mb-4">
-        {{ form.username.label_tag }}
-        {{ form.username }}
-        {% if form.username.errors %}
-          <p class="text-red-500 text-xs italic">{{ form.username.errors.0 }}</p>
-        {% endif %}
-      </div>
-      <div class="mb-4">
-        {{ form.password.label_tag }}
-        {{ form.password }}
-        {% if form.password.errors %}
-          <p class="text-red-500 text-xs italic">{{ form.password.errors.0 }}</p>
-        {% endif %}
-        {% if form.non_field_errors %}
-        <p class="text-red-500 text-xs italic">{{ form.non_field_errors.0 }}</p>
-        {% endif %}
+    <form
+  class="login"
+  method="POST"
+  action="{% url 'login' %}"
+>
+  {% csrf_token %}{% render_styled_form form %}
+  <a
+    class="btn-link"
+    href="{% url 'password_reset' %}"
+    >{%trans "Forgot Password?" %}</a
+  >
+  <button class="btn-primary" type="submit">
+    {%trans "Sign In" %}
+  </button>
 
-      </div>
-      <div class="flex items-center justify-between">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
-          Login
-        </button>
-      </div>
-    </form>
+  {% if form.errors %}
+  <div class="text-red-500 text-xs italic">{{ form.non_field_errors }}</div>
+{% endif %}
+</form>
   </div>
 {% endblock %}
