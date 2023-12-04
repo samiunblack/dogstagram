@@ -3,3 +3,6 @@
 db.sqlite3
 /dogstagram/__pycache__
 /virtualenv
+/dogstagram/static
+/static/CACHE
+/static/styles/output.css
