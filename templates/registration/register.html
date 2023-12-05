@@ -1,27 +1,17 @@
-{% extends 'global/_base.html' %}
+{% extends "global/_base.html" %}
 {% load project_tags %}
 {% load i18n %}
 
-{% block content %}
-  <div class="flex justify-center items-center h-screen">
-    <form
-  class="login"
-  method="POST"
-  action="{% url 'login' %}"
->
-  {% csrf_token %}{% render_styled_form form %}
-  <a
-    class="btn-link"
-    href="{% url 'password_reset' %}"
-    >{%trans "Forgot Password?" %}</a
-  >
-  <button class="btn-primary" type="submit">
-    {%trans "Sign In" %}
-  </button>
+{% block content %}   
+<!--Register--> 
+<div class="mt-8 flex justify-center">
+	<div class="sm:w-96">
+        <form method="POST">
+            {% csrf_token %}
+            {% render_styled_form register_form %}   
+            <button type="submit" class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Register</button>
+        </form>
+    </div>
+</div>
 
-  {% if form.errors %}
-  <div class="text-red-500 text-xs italic">{{ form.non_field_errors }}</div>
-{% endif %}
-</form>
-  </div>
 {% endblock %}
