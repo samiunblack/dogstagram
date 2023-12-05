@@ -2,7 +2,7 @@ from django import template
 
 register = template.Library()
 
-@register.inclusion_tag('form_styles.html')
+@register.inclusion_tag('snippets/form_snippets.html')
 def render_styled_form(form):
     return {'form': form}
 
