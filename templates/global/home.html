@@ -1,0 +1,16 @@
+{% extends 'global/_base.html' %}
+{% block content %}
+
+{% if user.username %}
+<h1 class="text-3xl font-bold p-5">Welcome Back, {{user.username}}</h1>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form>
+{% else %}
+<h1 class="text-3xl font-bold p-5">You haven't logged in yet! <a href="{% url 'login' %}">Login here</a></h1>
+{% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "global/_base.html" %}
+{% load project_tags %}
+{% load i18n %}
+
+{% block content %}   
+<!--Register--> 
+<div class="mt-8 flex justify-center">
+	<div class="sm:w-96">
+        <form method="POST">
+            {% csrf_token %}
+            {% render_styled_form register_form %}   
+            <button type="submit" class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Register</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
