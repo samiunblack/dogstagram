@@ -1,0 +1,27 @@
+{% extends 'global/_base.html' %}
+{% load project_tags %}
+{% load i18n %}
+
+{% block content %}
+  <div class="flex justify-center items-center h-screen">
+    <form
+  class="login"
+  method="POST"
+  action="{% url 'login' %}"
+>
+  {% csrf_token %}{% render_styled_form form %}
+  <a
+    class="btn-link"
+    href="{% url 'password_reset' %}"
+    >{%trans "Forgot Password?" %}</a
+  >
+  <button class="btn-primary" type="submit">
+    {%trans "Sign In" %}
+  </button>
+
+  {% if form.errors %}
+  <div class="text-red-500 text-xs italic">{{ form.non_field_errors }}</div>
+{% endif %}
+</form>
+  </div>
+{% endblock %}
