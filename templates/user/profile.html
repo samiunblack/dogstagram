@@ -1,0 +1,17 @@
+{% extends 'global/_base.html' %}
+{% block content %}
+
+{% if user == None %}
+<div>
+    <p>This profile does not exist</p>
+</div>
+{% elif user.username == admin.username %}
+<div>
+    <p>You are the owner of this profile!</p>
+</div>
+{% else %}
+<div>
+    <p>This is the profile of {{user.username}}</p>
+</div>
+{% endif %}
+{% endblock %}
