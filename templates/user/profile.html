@@ -2,12 +2,13 @@
 {% block content %}
 
 {% if user == None %}
-<div>
-    <p>This profile does not exist</p>
+<div class="p-5">
+    <h3 class="text-3xl font-bold">This profile does not exist</h3>
 </div>
 {% elif user.username == admin.username %}
-<div>
-    <p>You are the owner of this profile!</p>
+<div class="p-5">
+    <h3 class="text-3xl font-bold">You are the owner of this profile!</h3>
+    <a href="{% url 'delete_profile' username=user.username %}"><button class="bg-red-600 text-white py-1 px-3 rounded-md">Delete</button></a>
 </div>
 {% else %}
 <div>
