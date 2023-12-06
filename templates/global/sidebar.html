@@ -8,7 +8,7 @@
  
  <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-      <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse mb-5">
+      <a href="{% url 'home' %}" class="flex items-center space-x-3 rtl:space-x-reverse mb-5">
          <img src="https://em-content.zobj.net/source/google/387/paw-prints_1f43e.png" class="h-8" alt="Dogstagram Logo" />
          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white font-display">Dogstagram</span>
      </a>
@@ -46,10 +46,11 @@
              </a>
           </li>
           <li>
-            <a href="{% url "logout" %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <form method="post" action="{% url 'logout' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                {% csrf_token %}
                 <i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i>
-               <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
-            </a>
+               <button class="ms-3" type="submit">Logout</button>
+            </form>
          </li>
        </ul>
     </div>
