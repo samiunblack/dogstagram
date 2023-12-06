@@ -8,12 +8,10 @@ class NewUserForm(UserCreationForm):
     
     def __init__(self, *args, **kwargs):
         super(UserCreationForm, self).__init__(*args, **kwargs)
+        # Disable autofocus for the username field
+        self.fields['username'].widget.attrs.pop('autofocus', None)
+        self.fields['first_name'].widget.attrs['autofocus'] = True
 
-        for fieldname in ['username', 'password1', 'password2']:
-            self.fields[fieldname].help_text = None
-        
-        for fieldname in ['first_name', 'last_name', 'email']:
-            self.fields[fieldname].required = True
     
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)
