@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'compressor',
     'widget_tweaks',
     'user.apps.UserConfig',
+    'post',
 ]
 
 MIDDLEWARE = [

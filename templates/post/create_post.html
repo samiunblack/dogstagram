@@ -1,0 +1,21 @@
+{% extends 'global/_base.html' %}
+{% load project_tags %}
+
+{% block content %}
+  <div class="flex justify-center items-center h-screen">
+    <form
+  class=""
+  method="POST">
+  {% csrf_token %}
+  {% render_styled_form form %}
+
+  <button class="btn-primary" type="submit">
+    Create
+  </button>
+
+  {% if form.errors %}
+  <div class="text-red-500 text-xs italic">{{ form.errors }}</div>
+{% endif %}
+</form>
+  </div>
+{% endblock %}

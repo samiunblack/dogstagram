@@ -6,7 +6,7 @@
       >{{ field.label }}</span
     >
     <!-- Checkbox -->
-    {% if field.field.widget.input_type == 'checkbox' %}
+      {% if field.field.widget.input_type == 'checkbox' %}
         {{ field|add_class:"rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" }}
       {% elif field.field.widget.input_type == 'date' %}
         {{ field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" }}
@@ -14,8 +14,12 @@
         {{ field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"|attr:"placeholder:" }}
       {% elif field.field.widget.input_type == 'password' %}
         {{ field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"|attr:"placeholder:" }}
-        {% elif field.field.widget.input_type == 'text' %}
+      {% elif field.field.widget.input_type == 'text' %}
         {{ field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"|attr:"placeholder:" }}
+      {% elif field.field.widget.input_type == 'url' %}
+        {{field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"|attr:"placeholder:"}}
+      {% elif field.field.widget.input_type == 'select' %}
+        {{field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"|attr:"placeholder:"}}
         {% else %}
         {{ field }}
       {% endif %}
