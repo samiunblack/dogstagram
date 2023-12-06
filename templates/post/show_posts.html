@@ -1,0 +1,33 @@
+{% extends 'global/_base.html' %}
+
+{% block content %}
+  <div class="p-5">
+    {% if posts %}
+        <div class="flex gap-2 flex-wrap">
+            {% for post in posts %}
+                <div>
+                    <img src="{{post.image}}" alt="post image" class="w-64 object-contain">
+                    <p>{{post.owner.username}}</p>
+                    <p>{{post.upload_time | timesince}}</p>
+                    <p>{{post.description}}</p>
+                    <div class="mb-3">
+                        {% for hashtag in post.hashtags.all %}
+                            <span>#{{hashtag.name}}</span>
+                        {% endfor %}
+                    </div>
+                    {% if user.username == post.owner.username %}
+                    <div>
+                        <a href="{% url 'delete_post' pk=post.pk %}"><button class="bg-red-600 py-1 px-4 rounded-md text-white">Delete</button></a>
+                        <button class="bg-blue-600 py-1 px-4 rounded-md text-white">Edit</button>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>
+            <h3 class="text-3xl">No posts available yet!!!</h3>
+        </div>
+    {% endif %}
+  </div>
+{% endblock %}

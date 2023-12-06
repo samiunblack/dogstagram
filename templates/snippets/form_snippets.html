@@ -18,8 +18,8 @@
         {{ field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"|attr:"placeholder:" }}
       {% elif field.field.widget.input_type == 'url' %}
         {{field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"|attr:"placeholder:"}}
-      {% elif field.field.widget.input_type == 'select' %}
-        {{field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"|attr:"placeholder:"}}
+      {% comment %} {% elif field.field.widget.input_type == 'select' %}
+        {{field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"|attr:"placeholder:"}} {% endcomment %}
         {% else %}
         {{ field }}
       {% endif %}
