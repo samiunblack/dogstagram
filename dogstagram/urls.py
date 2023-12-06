@@ -10,5 +10,6 @@ urlpatterns = [
     path("accounts/register/", register_request, name="register"),
     path("accounts/<str:username>/", profile, name="profile"),
     path("accounts/delete/<str:username>/", delete_request, name="delete_profile"),
-    path("post/", include("post.urls"))
+    path("post/", include("post.urls")),
+    path("comment/", include("comment.urls")),
 ]

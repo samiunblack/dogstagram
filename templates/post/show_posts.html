@@ -15,12 +15,28 @@
                             <span>#{{hashtag.name}}</span>
                         {% endfor %}
                     </div>
+                    <div>
+                        {% for comment in post.comments.all %}
+                            <div>
+                                <p>{{comment.text}}</p>
+                                <p>{{comment.comment_time|timesince}}</p>
+                                <p>{{comment.user.username}}</p>
+                                {% if comment.user.username == user.username %}
+                                    <a href="{% url 'delete_comment' pk=comment.pk %}"><button>Delete Comment</button></a>
+                                    <a href="{% url 'edit_comment' pk=comment.pk %}"><button>Edit Comment</button></a>
+                                {% endif %}
+                            </div>
+                            
+
+                        {% endfor %}
+                    </div>
                     {% if user.username == post.owner.username %}
                     <div>
                         <a href="{% url 'delete_post' pk=post.pk %}"><button class="bg-red-600 py-1 px-4 rounded-md text-white">Delete</button></a>
                         <a href="{% url 'edit_post' pk=post.pk %}"><button class="bg-blue-600 py-1 px-4 rounded-md text-white">Edit</button></a>
                     </div>
                     {% endif %}
+                    <a href="{% url 'create_comment' pk=post.pk %}"><button class="bg-sky-600 py-1 px-4 rounded-md text-white">Comment</button></a>
                 </div>
             {% endfor %}
         </div>

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'user.apps.UserConfig',
     'post',
+    'comment',
 ]
 
 MIDDLEWARE = [
