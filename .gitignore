@@ -14,3 +14,5 @@ db.sqlite3
 /post/migrations
 /comment/__pycache__
 /comment/migrations
+/feed/__pycache__
+/feed/migrations

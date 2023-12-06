@@ -1,0 +1,75 @@
+<div id="{{content.id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div class="overflow-y-auto">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Comments
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="{{content.id}}">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4">
+              <div class="flex gap-3 items-center mb-3">
+                  <img class="w-10 h-10 rounded-full object-cover" src="{{content.owner.userprofile.pfp}}" alt="pfp">
+                  <div>
+                      <p class="font-bold">{{content.owner.username}}</p>
+                      <p class="font-light text-gray-400 text-sm">{{content.upload_time | timesince}}</p>
+                  </div>
+              </div>
+              <div>
+                  <p>{{content.description | truncatewords:15}}</p>
+                  {% for hashtag in content.hashtags.all %}
+                  <span class="text-blue-700 font-medium cursor-pointer">{{hashtag.name}}</span>
+                  {% endfor %}
+              </div>
+            </div>
+            <hr>
+
+            <div class="p-4 md:p-5 space-y-4 relative">
+                {% comment %} others comments {% endcomment %}
+                <div>
+                {% if content.comments.count == 0 %}
+                  <p>No comments found!</p>
+                  {% else %}
+                    {% for comment in content.comments.all %}
+                    <div class="flex gap-3 mb-4">
+                        <img class="w-10 h-10 rounded-full object-cover" src="{{comment.user.userprofile.pfp}}" alt="pfp">
+                        <div>
+                            <span class="font-bold">{{comment.user.username}}</span>
+                            <span>{{comment.text}}</span>
+                            <div class="flex gap-3 text-gray-400 text-sm">
+                                    <span class="font-medium">{{comment.comment_time | timesince}}</span>
+                                    {% if comment.user == user %}
+                                    <div class="flex gap-2 underline text-decoration-inherit">
+                                        <span class="cursor-pointer"><a href="{% url 'delete_comment' pk=comment.pk  %}">delete</a></span>
+                                    </div>
+                                    {% endif %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                </div>
+                {% comment %} create comment {% endcomment %}
+                <div class="sticky bottom-0 flex gap-2">
+                    <img class="w-10 h-10 rounded-full object-cover" src="{{user.userprofile.pfp}}" alt="pfp">
+                    <form method="post" action="{% url 'create_comment' pk=content.pk %}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white flex justify-between">
+                        {% csrf_token %}
+                        <input type="text" id="comment" name="comment" class="comment"  placeholder="Add a comment..." required>
+                        <button type="submit" style="padding-right:10px" class="text-blue-700 font-medium">Post</button>
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
