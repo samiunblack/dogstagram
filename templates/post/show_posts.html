@@ -18,7 +18,7 @@
                     {% if user.username == post.owner.username %}
                     <div>
                         <a href="{% url 'delete_post' pk=post.pk %}"><button class="bg-red-600 py-1 px-4 rounded-md text-white">Delete</button></a>
-                        <button class="bg-blue-600 py-1 px-4 rounded-md text-white">Edit</button>
+                        <a href="{% url 'edit_post' pk=post.pk %}"><button class="bg-blue-600 py-1 px-4 rounded-md text-white">Edit</button></a>
                     </div>
                     {% endif %}
                 </div>

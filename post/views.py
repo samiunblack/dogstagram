@@ -33,3 +33,20 @@ def delete(request, pk):
     if request.user == post.owner:
         post.delete()
     return redirect("show_post")
+
+
+def edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    form = PostForm(instance=post)
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            # form.save()
+            post = form.save(commit=False)
+            post.save()
+            form.save_m2m() 
+            return redirect('show_post')
+        else:
+            return render(request, 'post/create_post.html', {'form': form})
+
+    return render(request, 'post/create_post.html', {'form': form})

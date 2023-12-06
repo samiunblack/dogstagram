@@ -10,3 +10,7 @@ db.sqlite3
 /static/admin
 /user/__pycache__
 /user/migrations
+/post/__pycache__
+/post/migrations
+/comment/__pycache__
+/comment/migrations
