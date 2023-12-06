@@ -10,10 +10,12 @@
     {% compress css %}
     <link rel="stylesheet" href="{% static 'styles/output.css' %}">
     {% endcompress %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     {% block content %}
     {% endblock %}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
 </body>
 </html>

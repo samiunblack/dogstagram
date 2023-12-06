@@ -1,0 +1,11 @@
+{% extends 'global/main.html' %}
+{% block main %}
+<div class="p-5">
+  <h1 class="text-3xl font-bold">Welcome Back, {{user.username}}</h1>
+  <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="underline decoration-inherit text-blue-700">Logout</button>
+    </form>
+</div>
+
+{% endblock %}
