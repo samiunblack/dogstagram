@@ -46,10 +46,10 @@
              </a>
           </li>
           <li>
-            <form method="post" action="{% url 'logout' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <form method="post" action="{% url 'logout' %}" class="cursor-pointer flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 {% csrf_token %}
                 <i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i>
-               <button class="ms-3" type="submit">Logout</button>
+               <button class="ms-3 w-full flex justify-start" type="submit">Logout</button>
             </form>
          </li>
        </ul>

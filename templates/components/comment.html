@@ -18,14 +18,10 @@
             <!-- Modal body -->
             <div class="p-4">
               <div class="flex gap-3 items-center mb-3">
-                  {% if content.user.userprofile.pfp %}
-                  <img class="w-10 h-10 rounded-full object-cover" src="{{content.user.userprofile.pfp}}" alt="pfp">
-                  {% else %}
-                  <img class="w-10 h-10 rounded-full object-cover" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/65761296352685.5eac4787a4720.jpg" alt="pfp">
-                  {% endif %}
+                  <img class="w-10 h-10 rounded-full object-cover" src="{{content.owner.userprofile.pfp}}" alt="pfp">
                   <div>
-                      <p class="font-bold">{{content.user.username}}</p>
-                      <p class="font-light text-gray-400 text-sm">{{content.upload_date | timesince}}</p>
+                      <p class="font-bold">{{content.owner.username}}</p>
+                      <p class="font-light text-gray-400 text-sm">{{content.upload_time | timesince}}</p>
                   </div>
               </div>
               <div>
@@ -37,29 +33,40 @@
             </div>
             <hr>
 
-            <div class="p-4 md:p-5 space-y-4">
+            <div class="p-4 md:p-5 space-y-4 relative">
+                {% comment %} others comments {% endcomment %}
                 <div>
-                  {% if content.comments.count == 0 %}
+                {% if content.comments.count == 0 %}
                   <p>No comments found!</p>
                   {% else %}
-                  {% for comment in content.comments.all %}
-                  <div class="flex gap-3 mb-4">
-                      {% if comment.user.userprofile.pfp %}
-                      <img class="w-10 h-10 rounded-full object-cover" src="{{comment.user.userprofile.pfp}}" alt="pfp">
-                      {% else %}
-                      <img class="w-10 h-10 rounded-full object-cover" src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/65761296352685.5eac4787a4720.jpg" alt="pfp">
-                      {% endif %}
-                      <div>
-                          <span class="font-bold">{{comment.user.username}}</span>
-                          <span>{{comment.text}}</span>
-                          <div class=" text-gray-400 font-medium text-sm">
-                              {{comment.comment_date | timesince}}
-                          </div>
-                      </div>
-                      
-                  </div>
-                  {% endfor %}
-                  {% endif %}
+                    {% for comment in content.comments.all %}
+                    <div class="flex gap-3 mb-4">
+                        <img class="w-10 h-10 rounded-full object-cover" src="{{comment.user.userprofile.pfp}}" alt="pfp">
+                        <div>
+                            <span class="font-bold">{{comment.user.username}}</span>
+                            <span>{{comment.text}}</span>
+                            <div class="flex gap-3 text-gray-400 text-sm">
+                                    <span class="font-medium">{{comment.comment_time | timesince}}</span>
+                                    {% if comment.user == user %}
+                                    <div class="flex gap-2 underline text-decoration-inherit">
+                                        <span class="cursor-pointer"><a href="{% url 'delete_comment' pk=comment.pk  %}">delete</a></span>
+                                    </div>
+                                    {% endif %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                </div>
+                {% comment %} create comment {% endcomment %}
+                <div class="sticky bottom-0 flex gap-2">
+                    <img class="w-10 h-10 rounded-full object-cover" src="{{user.userprofile.pfp}}" alt="pfp">
+                    <form method="post" action="{% url 'create_comment' pk=content.pk %}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white flex justify-between">
+                        {% csrf_token %}
+                        <input type="text" id="comment" name="comment" class="comment"  placeholder="Add a comment..." required>
+                        <button type="submit" style="padding-right:10px" class="text-blue-700 font-medium">Post</button>
+                    </form>
                 </div>
             </div>
           </div>

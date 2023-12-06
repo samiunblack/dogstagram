@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from user.models import UserProfile
 from post.models import Post
 
+
 @login_required
 def home(request):
     user = request.user
