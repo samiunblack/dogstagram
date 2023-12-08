@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import CommentForm
 from post.models import Post
-from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .models import Comment
 

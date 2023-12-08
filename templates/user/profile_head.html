@@ -1,0 +1,27 @@
+<div>
+    <div class="flex flex-wrap items-center sm:gap-28 gap-7 justify-center">
+
+        <img class="w-36 h-36 rounded-full object-cover" src="{{user.userprofile.pfp}}" alt="profile picture">
+        <div>
+            <div class="flex justify-between gap-8">
+                <h3 class="text-2xl">{{user.username}}</h3>
+                {% if user.username == admin.username %}
+                <button type="button" class="text-black bg-[#EFEFEF] hover:bg-[#EFEFEF]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-6 py-1.5 me-2 mb-2 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30">
+                    Edit Profile
+                </button>
+                {% else %}
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Follow</button>
+                {% endif %}
+            </div>
+            <div class="flex justify-between mt-2 gap-4">
+                <p><span class="font-medium">{{user.posts.count}}</span> posts</p>
+                <p><span class="font-medium">{{user.userprofile.followers.count}}</span> followers</p>
+                <p><span class="font-medium">{{user.userprofile.user.following.count}}</span> following</p>
+            </div>
+            <div class="mt-4">
+                <p class="font-medium">{{user.first_name}} {{user.last_name}}</p>
+                <p class="mt-2">{{user.user_profile.bio }}</p>
+            </div>
+        </div>
+    </div>
+</div>
