@@ -1,5 +1,5 @@
 <div>
-    <div class="flex flex-wrap items-center sm:gap-28 gap-7 justify-center">
+    <div class="flex items-center sm:gap-28 gap-7 justify-center">
 
         <img class="w-36 h-36 rounded-full object-cover" src="{{user.userprofile.pfp}}" alt="profile picture">
         <div>
@@ -10,17 +10,18 @@
                     Edit Profile
                 </button>
                 {% else %}
+                {% comment %} real time update: js based {% endcomment %}
                 <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-1.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Follow</button>
                 {% endif %}
             </div>
-            <div class="flex justify-between mt-2 gap-4">
+            <div class="flex mt-2 gap-4">
                 <p><span class="font-medium">{{user.posts.count}}</span> posts</p>
                 <p><span class="font-medium">{{user.userprofile.followers.count}}</span> followers</p>
                 <p><span class="font-medium">{{user.userprofile.user.following.count}}</span> following</p>
             </div>
             <div class="mt-4">
                 <p class="font-medium">{{user.first_name}} {{user.last_name}}</p>
-                <p class="mt-2">{{user.user_profile.bio }}</p>
+                <p class="mt-2 text-sm">{{user.userprofile.bio }}</p>
             </div>
         </div>
     </div>
