@@ -1,12 +1,12 @@
 {% load humanize %}
 <div class="max-w-md relative">
-    <div class="flex gap-3 items-center mb-3">
+    <a href="{% url "profile" username=content.owner.username %}"><div class="flex gap-3 items-center mb-3">
         <img class="w-10 h-10 rounded-full object-cover" src="{{content.owner.userprofile.pfp}}" alt="pfp">
         <div>
             <p class="font-bold">{{content.owner.username}}</p>
             <p class="font-light text-gray-400 text-sm">{{content.upload_time | timesince}}</p>
         </div>
-    </div>
+    </div></a>
     <img class="rounded object-cover w-full inline-block" src="{{content.image}}" alt="post image" style="max-height: 710px;"/>
     <div class="py-3">
         <div class="flex gap-3">
