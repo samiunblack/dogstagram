@@ -29,8 +29,5 @@ def delete_request(request, username):
 
 
 def profile(request, username):
-    try:
-        user = User.objects.get(username=username)
-        return render(request, 'user/profile.html', {"user": user, "admin": request.user})
-    except User.DoesNotExist:
-        return render(request, 'user/profile.html', {"user": None, "admin": None})
+    user = get_object_or_404(User, username=username)
+    return render(request, 'user/profile.html', {"user": user, "admin": request.user})
