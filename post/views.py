@@ -5,7 +5,7 @@ from .models import Post
 
 # Create your views here.
 @login_required
-def create(request):
+def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
@@ -14,7 +14,7 @@ def create(request):
             post.owner = request.user
             post.save()
             form.save_m2m() 
-            return redirect('show_post')
+            return redirect('profile', username=request.user.username)
         else:
             return render(request, 'post/create_post.html', {'form': form})
     else:
