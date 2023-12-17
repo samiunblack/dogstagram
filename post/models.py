@@ -10,7 +10,7 @@ class Hashtag(models.Model):
 
 
 class Post(models.Model):
-    image = models.URLField()
+    image = models.ImageField(upload_to='temp/')
     description = models.TextField(blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     upload_time = models.DateTimeField(auto_now_add=True)

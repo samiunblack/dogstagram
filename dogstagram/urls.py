@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from user.views import register_request, profile, delete_request
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,3 +14,6 @@ urlpatterns = [
     path("", include("post.urls")),
     path("comment/", include("comment.urls")),
 ]
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

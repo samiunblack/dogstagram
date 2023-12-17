@@ -13,7 +13,7 @@ def register_request(request):
             password = form.cleaned_data['password1']
             user = authenticate(request, username=username, password=password)
             
-            if user != None:
+            if user is not None:
                 login(request, user)
             
             return redirect("home")
