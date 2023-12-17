@@ -2,7 +2,7 @@
     <div class="grid grid-cols-3 gap-1 relative">
         {% for post in user.posts.all %}
         <div>
-            <img class="aspect-square object-cover max-w-full" src="{{post.image}}" alt="">
+            <img class="aspect-square object-cover max-w-full" src="{{post.img_url}}" alt="">
         </div>
         {% endfor %}
     </div>

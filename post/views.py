@@ -4,75 +4,85 @@ from django.contrib.auth.decorators import login_required
 from .models import Post
 import requests
 import os
-from dogstagram.settings import imgur_client_id
+from .predict import predictWhat
+from dogstagram.settings import imgbb_client_id
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
+from django.core.files.storage import FileSystemStorage
 
 
-def upload_image_to_imgur(image_path, client_id):
-    # Imgur API endpoint
-    url = "https://api.imgur.com/3/image"
+def delete_local_image(image_path):
+    try:
+        os.remove(image_path)
+        print(f"Deleted local image at: {image_path}")
+    except Exception as e:
+        print(f"Error deleting local image: {e}")
 
-    # Set up headers with authorization
-    headers = {"Authorization": f"Client-ID {client_id}"}
 
-    # Open the image file and send a POST request to Imgur
-    with open(image_path, "rb") as image_file:
-        files = {"image": image_file}
-        data = {"type": "url", "hidden": "true"}
-        response = requests.post(url, headers=headers, files=files, data=data)
+def upload_image_to_imgbb(api_key, image_path):
+    endpoint = "https://api.imgbb.com/1/upload"
 
-    # Parse the response and get the image URL
-    if response.status_code == 200:
-        return response.json()["data"]["link"]
-    else:
-        return None
+    with open(image_path, "rb") as file:
+        files = {"image": file}
+        params = {"key": api_key}
+
+        response = requests.post(endpoint, files=files, params=params)
+        result = response.json()
+
+        if response.status_code == 200:
+            # Successful upload
+            return result["data"]["url"]
+        else:
+            # Print error message or handle the error as needed
+            print("Error:", result["error"]["message"])
+            return None
 
 
 # Example usage in a Django view
 def upload_image(request):
+    
+    image_file = request.FILES['image']
+    fs = FileSystemStorage(base_url='/media/temp/', location="media/temp/")
+    filename = fs.save(image_file.name, image_file)
+    
+    result = predictWhat('media/temp/' + filename)
+    
+    if result:
+        imgbb_api_key = imgbb_client_id
+        uploaded_image_url = upload_image_to_imgbb(imgbb_api_key, 'media/temp/' + filename)
+        delete_local_image('media/temp/' + filename)
+        return uploaded_image_url, filename
+    else:
+        delete_local_image('media/temp/' + filename)
+        return None, filename
+
+
+
+@login_required
+def create_post(request):
     if request.method == 'POST':
-        # Assume the uploaded file is in request.FILES['image']
-        uploaded_image = request.FILES['temp']
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            url, filename = upload_image(request)
+            if url is not None:
+                post = form.save(commit=False)
+                post.owner = request.user
+                post.img_url = url
+                post.save()
+                form.save_m2m() 
+                delete_local_image('media/temp/' + filename)
+            else:
+                return redirect('profile', username=request.user.username)
+            
+            return redirect('profile', username=request.user.username)
+        else:
+            return render(request, 'post/create_post.html', {'form': form})
+    else:
+        form = PostForm()
 
-        # Save the uploaded image to a temporary file
-        with open('temp_image.jpg', 'wb') as temp_file:
-            for chunk in uploaded_image.chunks():
-                temp_file.write(chunk)
-
-        # Replace 'your_imgur_client_id' with your actual Imgur API client ID
-        print(imgur_client_id)
-        imgur_url = upload_image_to_imgur('temp_image.jpg', imgur_client_id)
-
-        # Save the Imgur URL to your database
-        # ...
-
-        # Cleanup: Delete the temporary file
-        os.remove('temp_image.jpg')
-
-        # Continue with the rest of your view logic
-        # ...
+    return render(request, 'post/create_post.html', {'form': form})
 
 
-
-# Create your views here.
-# @login_required
-# def create_post(request):
-#     if request.method == 'POST':
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             print(form.cleaned_data)
-#             # post = form.save(commit=False)
-#             # post.owner = request.user
-#             # post.save()
-#             # form.save_m2m() 
-#             return redirect('profile', username=request.user.username)
-#         else:
-#             return render(request, 'post/create_post.html', {'form': form})
-#     else:
-#         form = PostForm()
-
-#     return render(request, 'post/create_post.html', {'form': form})
 
 class CreatePost(CreateView):
     model = Post

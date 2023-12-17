@@ -15,6 +15,7 @@ class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     upload_time = models.DateTimeField(auto_now_add=True)
     hashtags = models.ManyToManyField(Hashtag, related_name='posts', blank=True)
+    img_url = models.URLField(blank=True, null=True)
 
     
     def __str__(self):

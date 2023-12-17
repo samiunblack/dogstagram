@@ -23,7 +23,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-imgur_client_id = env('IMGUR_CLIENT_ID')
+imgbb_client_id = env('IMGBB_CLIENT_ID')
 
 ALLOWED_HOSTS = []
 

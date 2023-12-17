@@ -13,7 +13,4 @@ urlpatterns = [
     path("accounts/delete/<str:username>/", delete_request, name="delete_profile"),
     path("", include("post.urls")),
     path("comment/", include("comment.urls")),
-]
-
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
